@@ -28,7 +28,7 @@ def connect(tid):
     session = requests.Session()
 
     r = session.get("{}context".format(BASE))
-    print(r.status_code)
+    print(tid, r.status_code)
     if r.status_code != 200:
         print(r.text)
 
@@ -38,9 +38,8 @@ def connect(tid):
 
 
 def doit(tid):
+    (session, context) = connect(tid)
     while True:
-        (session, context) = connect(tid)
-
         for pmd in PMDS:
             r = session.get("{}{}/fetch?name={}".format(BASE, context, pmd))
             # print(tid, r.status_code)
